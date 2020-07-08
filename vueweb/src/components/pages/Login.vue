@@ -38,8 +38,8 @@ export default {
         console.log(response.data);
         if(response.data.success){
             vm.$router.push('/')
-        }
-        })
+            }
+        });
     },
     },
 };
