@@ -268,6 +268,8 @@ export default {
                 if(response.data.success){
                     // vm.tempProduct.imageUrl = response.data.imageUrl;
                     vm.$set(vm.tempProduct, 'imageUrl', response.data.imageUrl)
+                } else {
+                    this.$bus.$emit('message:push', 'response.data.message', 'danger');
                 }
             });
         },
