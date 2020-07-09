@@ -31,6 +31,9 @@
                     <td>
                         <button class="btn btn-outline-primary btn-sm" @click="openModal(false,item)" >編輯</button>
                     </td>
+                    <td>
+                        <button class="btn btn-outline-primary btn-sm" @click="openDelProductModal(item)" >刪除</button>
+                    </td>
                 </tr>
             </tbody>
         </table>
@@ -61,7 +64,7 @@
                 <i class="fas fa-spinner fa-spin"></i>
               </label>
               <input type="file" id="customFile" class="form-control"
-                ref="files">
+                ref="files" >
             </div>
             <img img="https://images.unsplash.com/photo-1483985988355-763728e1935b?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=828346ed697837ce808cae68d3ddc3cf&auto=format&fit=crop&w=1350&q=80"
               class="img-fluid" src="tempProduct.imageUrl" alt="">
@@ -158,7 +161,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">取消</button>
-                    <button type="button" class="btn btn-danger"
+                    <button type="button" class="btn btn-danger" @click="delProduct"
                     >確認刪除</button>
                 </div>
                 </div>
@@ -217,6 +220,27 @@ export default {
                     console.log('新增失敗');
                 }
             })
+        },
+        openDelProductModal(item) {
+            const vm = this;
+            $('#delProductModal').modal('show');
+            vm.tempProduct = Object.assign({}, item);
+        },
+        delProduct() {
+            const vm = this;
+            const url = `${process.env.APIPATH}/api/${process.env.CUSTOMPATH}/admin/product/${vm.tempProduct.id}`
+            this.$http.delete(url).then((response) => {
+                console.log(response.data);
+                if (response.data.success) {
+                    $("#delProductModal").modal("hide");
+                        vm.getProducts();
+                    } else {
+                        $("#delProductModal").modal("hide");
+                        vm.getProducts();
+                        console.log("刪除失敗");
+                        console.log(url);
+                    }
+            });
         }
     },
     created(){
