@@ -263,17 +263,23 @@ export default {
                 vm.isLoading = false;
             });
         },
-        createOrder(){
+        createOrder() {
             const vm = this;
             const url = `${process.env.APIPATH}/api/${process.env.CUSTOMPATH}/order`;
             const order = vm.form;
-            vm.isLoading = true;
-            this.$http.post(url, {data: order}).then((response) => {
-                console.log('表單已建立', response);
-                // vm.getCart();
-                vm.isLoading = false;
+            // vm.isLoading = true;
+            this.$validator.validate().then((result) => {
+                if (result) {
+                    this.$http.post(url, { data: order }).then((response) => {
+                        console.log('訂單已建立', response);
+                        // vm.getCart();
+                        vm.isLoading = false;
+                });
+                } else {
+                    console.log('欄位不完整');
+                }
             });
-        }
+        },
     },
     created(){
         this.getProducts();
