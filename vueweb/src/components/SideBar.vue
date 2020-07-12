@@ -13,16 +13,14 @@
             <router-link to="/admin/porducts" class="nav-link">
             <i class="fas fa-box-open"></i>
             產品列表</router-link>
-            <a class="nav-link" href="#">
-              <span data-feather="file-text"></span>
+            <router-link to="/admin/orders" class="nav-link">
               <i class="far fa-list-alt"></i>
               訂單列表
-            </a>
-            <a class="nav-link" href="#">
-              <span data-feather="file-text"></span>
+            </router-link>
+            <router-link to="/admin/coupons" class="nav-link">
               <i class="fas fa-ticket-alt"></i>
               優惠券
-            </a>
+            </router-link>
           </li>
         </ul>
         <h6 class="sidebar-heading d-flex justify-content-between align-items-center 
